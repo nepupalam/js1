@@ -10,16 +10,13 @@ const Output = {
 const ArrayKeys = Object.keys(objectA)
 const ObjectKeys = Object.keys(objectA[ArrayKeys[1]])
 
-
-Output.AddVariable(3)
-console.log(Output.Array)
-console.log(GetVariables(0, 0,))
-console.log(GetName(0))
+let count = 0;
+ObjectArray.forEach(z => console.log(GetName(z)))
 
 
 function GetVariables(object, Key) {
-        return ObjectArray[object][ArrayKeys[1]][ObjectKeys[Key]]
+        return object[ArrayKeys[1]][ObjectKeys[Key]]
 }
 function GetName(object) {
-    return  ObjectArray[object][ArrayKeys[0]]
+    return  object[ArrayKeys[0]]
 }
