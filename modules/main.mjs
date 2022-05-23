@@ -1,6 +1,6 @@
-import {objectA, objectB, objectD} from './object.mjs'
+import {objectOne, objectTwo, objectThree, objectFour, objectFive, objectSix, objectSeven, objectEight, objectNine, objectTen} from './object.mjs'
 
-const ObjectArray = [objectA, objectB]
+const ObjectArray = [objectOne, objectTwo, objectThree, objectFour, objectFive, objectSix, objectSeven, objectEight, objectNine, objectTen]
 
 const Output = {
     Array:  {},
@@ -17,8 +17,8 @@ const Output = {
     }
 }
 
-const ArrayKeys = Object.keys(objectA)
-const ObjectKeys = Object.keys(objectA[ArrayKeys[1]])
+const ArrayKeys = Object.keys(objectOne)
+const ObjectKeys = Object.keys(objectOne[ArrayKeys[1]])
 
 
 //ObjectArray.forEach(z => console.log(GetVariables(z, 0)))
