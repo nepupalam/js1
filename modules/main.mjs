@@ -8,7 +8,12 @@ const Output = {
         Output.Array[key] = {};
     },
     AddVariables: function (key,name , value) {
-        Output.Array[key][name] = value;
+        if  (Output.Array[key][name] === undefined) {
+            Output.Array[key][name] = [value];
+        }
+        else {
+            Output.Array[key][name].push(value)
+        }
     }
 }
 
@@ -28,14 +33,12 @@ function GetName(object) {
 ObjectKeys.forEach(key => Output.AddKey(key))
 console.log(Output.Array)
 
-let count = 0;
-let testdva =0;
-let test = 0;
+
     for (let i = 0; i < ObjectKeys.length; i++) {
 
         for (let j = 0; j < ObjectArray.length; j++) {
 
-            Output.AddVariables(ObjectKeys[i], GetName(ObjectArray[j])  , GetVariables(ObjectArray[j], i))
+            Output.AddVariables(ObjectKeys[i],GetVariables(ObjectArray[j], i)   ,GetName(ObjectArray[j]) )
         }
     }
 console.log(GetName(ObjectArray[0]))
