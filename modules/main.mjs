@@ -3,6 +3,7 @@ import {objectOne, objectTwo, objectThree, objectFour, objectFive, objectSix, ob
 const ObjectArray = [objectOne, objectTwo, objectThree, objectFour, objectFive, objectSix, objectSeven, objectEight, objectNine, objectTen]
 
 const Output = {
+    key: "",
     Array:  {},
     AddKey: function (key) {
         Output.Array[key] = {};
@@ -14,7 +15,16 @@ const Output = {
         else {
             Output.Array[key][name].push(value)
         }
-    }
+    },
+
+    GetString: function (key, Id) {
+        let variable = Object.keys(Output.Array[key])
+        let OutputString =""
+
+            OutputString +=variable[Id] +":" + ` ${Output.Array[key][variable[Id]]}`
+    return OutputString
+    },
+
 }
 
 const ArrayKeys = Object.keys(objectOne)
@@ -31,7 +41,7 @@ function GetName(object) {
 }
 
 ObjectKeys.forEach(key => Output.AddKey(key))
-console.log(Output.Array)
+Output.key = Object.keys(Output.Array)
 
 
     for (let i = 0; i < ObjectKeys.length; i++) {
@@ -41,7 +51,7 @@ console.log(Output.Array)
             Output.AddVariables(ObjectKeys[i],GetVariables(ObjectArray[j], i)   ,GetName(ObjectArray[j]) )
         }
     }
-console.log(GetName(ObjectArray[0]))
-console.log(Output.Array)
 
+
+export {Output, ObjectKeys}
 

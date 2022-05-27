@@ -1,11 +1,24 @@
 <!DOCTYPE HTML>
     <html>
         <body>
-        <script src="main.mjs"></script>
-        <script src="output.js"></script>
 
-        <button type="button" onclick="data()">кнопка</button>
 
+<p class="colour" id="0"></p>
+<p id ="1"></p>
+<p id ="2"></p>
+<p id ="3"></p>
+<p id ="4"></p>
+
+<script type="module">
+    import {Output, ObjectKeys} from "./main.mjs"
+    for (let j =0; j<ObjectKeys.length; j++) {
+        document.getElementById(`${j}`).innerHTML += Output.key[j] +":" + "<br>"
+        for (let i = 0; i < Object.keys(Output.Array[Output.key[j]]).length; i++) {
+
+            document.getElementById(`${j}`).innerHTML += Output.GetString(Output.key[j], i) + "<br>"
+        }
+    }
+</script>
 
 
 </body>
