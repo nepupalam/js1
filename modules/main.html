@@ -9,8 +9,18 @@
 <p id ="3"></p>
 <p id ="4"></p>
 
+
+    <button onclick="haha.filter1.net();"  id="pa" >~</button>
+    <p id="za"></p>
+
+<script >
+   const haha = {}
+
+</script>
 <script type="module">
     import {Output, ObjectKeys} from "./main.mjs"
+    import {filter1} from "./filter.mjs";
+
     for (let j =0; j<ObjectKeys.length; j++) {
         document.getElementById(`${j}`).innerHTML += Output.key[j] +":" + "<br>"
         for (let i = 0; i < Object.keys(Output.Array[Output.key[j]]).length; i++) {
@@ -18,8 +28,8 @@
             document.getElementById(`${j}`).innerHTML += Output.GetString(Output.key[j], i) + "<br>"
         }
     }
+haha.filter1 = filter1;
 </script>
-
 
 </body>
 
