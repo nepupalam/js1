@@ -10,8 +10,12 @@
 <p id ="4"></p>
 
 
-    <button onclick="haha.filter1.net();"  id="pa" >~</button>
-    <p id="za"></p>
+    <button onclick="haha.filter1.net();"  id="button1" >~</button>
+    <button onclick="haha.filter2.net();"  id="button2" >~</button>
+    <button onclick="haha.filter3.net();"  id="button3" >~</button>
+    <button onclick="haha.filter4.net();"  id="button4" >~</button>
+    <button onclick="haha.filter5.net();"  id="button5" >~</button>
+    <p id="result"></p>
 
 <script >
    const haha = {}
@@ -19,7 +23,7 @@
 </script>
 <script type="module">
     import {Output, ObjectKeys} from "./main.mjs"
-    import {filter1} from "./filter.mjs";
+    import {filter1,filter2, filter3,filter4,filter5, filterResult} from "./filter.mjs";
 
     for (let j =0; j<ObjectKeys.length; j++) {
         document.getElementById(`${j}`).innerHTML += Output.key[j] +":" + "<br>"
@@ -29,6 +33,11 @@
         }
     }
 haha.filter1 = filter1;
+    haha.filter2 = filter2;
+    haha.filter3 = filter3;
+    haha.filter4 =filter4;
+    haha.filter5 = filter5;
+    haha.filterResult = filterResult
 </script>
 
 </body>

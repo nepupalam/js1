@@ -51,6 +51,6 @@ Output.key = Object.keys(Output.Array)
             Output.AddVariables(ObjectKeys[i],GetVariables(ObjectArray[j], i)   ,GetName(ObjectArray[j]) )
         }
     }
-console.log(Output.Array)
-export {Output, ObjectKeys, }
+
+export {Output, ObjectKeys, ObjectArray}
 
