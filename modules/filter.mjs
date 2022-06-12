@@ -5,6 +5,7 @@ class filter {
        this.id = id
        this.count = 0
        this.lenght = Object.keys(Output.Array[ObjectKeys[this.id-1]]).length+1
+
    }
    countUP() {
 
@@ -17,10 +18,12 @@ class filter {
    }
      net() {
 if (Object.keys(Output.Array[ObjectKeys[this.id - 1]])[this.count] != undefined) {
-             document.getElementById(`button` + `${this.id}`).innerHTML = Object.keys(Output.Array[ObjectKeys[this.id - 1]])[this.count]
+        document.getElementById(`button` + `${this.id}`).innerHTML = Object.keys(Output.Array[ObjectKeys[this.id - 1]])[this.count]
             //document.getElementById(`text` + `${this.id}`).innerHTML = Output.GetString(Output.key[this.id - 1], this.count) + " " + this.count
              this.countUP()
              filterResult()
+
+
          }
 else {
    document.getElementById(`button` + `${this.id}`).innerHTML = `~`
@@ -32,15 +35,21 @@ else {
 
 
 }
+    setValue(value) {
+       this.value = value
+    }
+
 
 }
 function filterResult() {
     const Filter = {}
-    Filter[ObjectKeys[0]] = Object.keys(Output.Array[ObjectKeys[filter1.id - 1]])[filter1.count -1]
-    Filter[ObjectKeys[1]] = Object.keys(Output.Array[ObjectKeys[filter2.id - 1]])[filter2.count -1]
-    Filter[ObjectKeys[2]] = Object.keys(Output.Array[ObjectKeys[filter3.id - 1]])[filter3.count -1]
-    Filter[ObjectKeys[3]] = Object.keys(Output.Array[ObjectKeys[filter4.id - 1]])[filter4.count -1]
-    Filter[ObjectKeys[4]] = Object.keys(Output.Array[ObjectKeys[filter5.id - 1]])[filter5.count -1]
+
+        Filter[ObjectKeys[0]] = StringUndefined(select_1.value)
+    Filter[ObjectKeys[1]] = StringUndefined(select_2.value)
+    Filter[ObjectKeys[2]] =  StringUndefined(select_3.value)
+    Filter[ObjectKeys[3]] =  StringUndefined(select_4.value)
+    Filter[ObjectKeys[4]] = StringUndefined(select_5.value)
+    console.log(Filter)
 let result= ""
     let keys = Object.keys(Filter)
     let buffer = JSON.parse(JSON.stringify(ObjectArray))
@@ -75,13 +84,72 @@ let result= ""
 }
 
 
+
+
+
+
 const filter1 = new filter(1)
 const filter2 = new filter(2)
 const filter3 = new filter(3)
 const filter4 = new filter(4)
 const filter5 = new filter(5)
 
-export {filter1,filter2,filter3,filter4,filter5, filterResult}
+const body = document.body;
+const listSelects = [];
+const filterBlock = document.createElement('div')
+filterBlock.id = "filterBlock"
+body.appendChild(filterBlock);
+
+
+function createSelect() {
+    const selectBlock = document.createElement('div')
+    const listOptions = Object.keys(Output.Array[Object.keys(Output.Array)[listSelects.length]])
+
+    const blockName = document.createElement("b")
+    blockName.id = `blockName${listSelects.length}`
+    const elemText = document.createTextNode(Object.keys(Output.Array)[listSelects.length])
+    blockName.appendChild(elemText)
+    const select = document.createElement("select");
+    listSelects.push(select);
+    select.onchange = filterResult
+    select.id = `select_${listSelects.length}`;
+    select.name = `selectName`;
+    body.appendChild(select);
+    for (let i = 0; i < listOptions.length+1; i++) {
+        const option = document.createElement("option");
+
+        if (listOptions[i-1] != undefined) {
+            option.value = listOptions[i - 1];
+            option.text = listOptions[i - 1];
+            select.add(option);
+            filterBlock.appendChild(blockName)
+            filterBlock.appendChild(select)
+        }
+        else {
+            option.value = undefined;
+            option.text = "";
+            select.add(option);
+            filterBlock.appendChild(blockName)
+            filterBlock.appendChild(select)
+        }
+    }
+  //  filterBlock.appendChild(selectBlock)
+}
+createSelect()
+createSelect()
+createSelect()
+createSelect()
+createSelect()
+
+function StringUndefined(a) {
+    if (a === "undefined") {
+        return undefined
+    }
+
+        return  a
+}
+
+export {filter1,filter2,filter3,filter4,filter5, filterResult }
 
 
 
