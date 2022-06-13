@@ -21,7 +21,7 @@ const objectTwo = {
 const objectThree = {
     name:'яблоко3',
         features: {
-        colour: 'black',
+        colour: 'yellow',
             sweet: false,
             weight :20,
             calories: 10,
@@ -51,7 +51,7 @@ const objectFive = {
 const objectSix = {
     name: 'яблоко6',
     features: {
-        colour: 'black',
+        colour: 'yellow',
         sweet: true,
         weight: 120,
         calories: 90,
