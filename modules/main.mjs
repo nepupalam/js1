@@ -31,7 +31,6 @@ const ArrayKeys = Object.keys(objectOne)
 const ObjectKeys = Object.keys(objectOne[ArrayKeys[1]])
 
 
-//ObjectArray.forEach(z => console.log(GetVariables(z, 0)))
 
 function GetVariables(object, Key) {
         return object[ArrayKeys[1]][ObjectKeys[Key]]

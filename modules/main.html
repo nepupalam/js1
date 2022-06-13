@@ -19,20 +19,24 @@
 </script>
 <script type="module">
     import {Output, ObjectKeys} from "./main.mjs"
-    import { filterResult } from "./filter.mjs";
-
-    for (let j =0; j<ObjectKeys.length; j++) {
-        document.getElementById(`${j}`).innerHTML += Output.key[j] +":" + "<br>"
+    import { filterResult} from "./filter.mjs";
+function reference() {
+    for (let j = 0; j < ObjectKeys.length; j++) {
+        document.getElementById(`${j}`).innerHTML += Output.key[j] + ":" + "<br>"
         for (let i = 0; i < Object.keys(Output.Array[Output.key[j]]).length; i++) {
 
             document.getElementById(`${j}`).innerHTML += Output.GetString(Output.key[j], i) + "<br>"
         }
     }
+}
     haha.filterResult = filterResult
+haha.reference = reference
 
 </script>
-<img src="./img/Sprite-0001.png" class="img-thumbnail" >
 
-</body>
+
+
+
+        </body>
 
 </html>
