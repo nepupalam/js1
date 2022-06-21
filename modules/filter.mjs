@@ -83,9 +83,7 @@ cardGroup.className= "card-group"
 result.appendChild(cardGroup)
 cardGroup.id = "card-group"
 
-function da() {
-    cardGroup.appendChild(PrintResult(ObjectArray[0]))
-}
+
 
 
 
@@ -182,7 +180,7 @@ function StringUndefined(a) {
         return  a
 }
 
-export {filterResult, da}
+export {filterResult}
 
 
 
