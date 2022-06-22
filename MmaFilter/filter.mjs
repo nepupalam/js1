@@ -69,14 +69,29 @@ const listButton = [];
 const listCheckbox = [];
 const listSelectsPrice = [];
 const listSelectsDuration = [];
+const result = document.createElement("h4")
+result.id ="result"
+body.appendChild(result)
+let resultArray = []
+const lestSubtypeButton =[];
+const subButtonArea =document.createElement("div")
+body.appendChild(subButtonArea)
+subButtonArea.id = "subButtonArea"
+
+
 
 
 
 
 function generateButton() {
  const Button = document.createElement('button')
-    Button.onclick = alert1
-    let text = document.createTextNode(Object.keys(FilterArray)[listButton.length])
+
+    Button.onclick = generateResult
+    Button.value = Object.keys(FilterArray)[listButton.length]
+    Button.className = "btn btn-primary"
+    Button.count = listButton.length
+    Button.id = "Button" +`${listButton.length}`
+        let text = document.createTextNode(Object.keys(FilterArray)[listButton.length])
     listButton.push(Button)
     Button.appendChild(text)
     body.appendChild(Button)
@@ -88,12 +103,11 @@ function generateCheckbox() {
          Checkbox.value = FilterArray['Бакалавриат'][0].features[Object.keys(FilterArray['Бакалавриат'][0].features)[1]]
     const label = document.createElement('label')
     const text = document.createTextNode(Object.keys(FilterArray['Бакалавриат'][0].features)[listCheckbox.length])
+
+    label.appendChild(Checkbox)
     label.appendChild(text)
-    Checkbox.appendChild(label)
-    body.appendChild(Checkbox)
     listCheckbox.push(Checkbox)
     body.appendChild(label)
-
 }
 
 function generateSelect(type) {
@@ -121,8 +135,6 @@ function generateSelect(type) {
 
         }
     }
-
-
 }
 
 
@@ -139,7 +151,67 @@ generateSelect(`Duration`)
 
 
 
-function alert1() {
-    alert("12")
+
+
+function generateResult() {
+    resultArray = Object.assign([], FilterArray[Object.keys(FilterArray)[this.count]])
+
+    generateSubTypeButton()
+    printResult()
+
 }
-console.log(DurationArray);
+function generateSubTypeButton() {
+let subtype = []
+
+    for (let i=0; i<resultArray.length; i++) {
+        if (subtype.indexOf(resultArray[i].features.subtype) == -1) {
+            subtype.push(resultArray[i].features.subtype)
+
+        }
+    }
+    document.getElementById('subButtonArea').innerHTML = "";
+    if (subtype[0] != undefined) {
+        for (let i = 0; i < subtype.length; i++) {
+            const Button = document.createElement("button")
+            Button.onclick = SubButtonResult
+            Button.value = subtype[i]
+            Button.className = "btn btn-secondary"
+            Button.count = i
+            Button.id = "SubButton" + `${i}`
+            let text = document.createTextNode(subtype[i])
+            listButton.push(Button)
+            Button.appendChild(text)
+            subButtonArea.appendChild(Button)
+        }
+    }
+}
+
+function SubButtonResult() {
+    const buffer = Object.assign([], resultArray)
+    for (let i = 0; i< resultArray.length; i++) {
+        if (resultArray[i].features.subtype != this.value) {
+            delete resultArray[i]
+        }
+
+    }
+    console.log(buffer)
+    printResult()
+    resultArray = Object.assign([] ,buffer)
+}
+
+function printResult() {
+    document.getElementById('result').innerHTML = "";
+
+    let massege = ""
+    for (let i = 0; i < resultArray.length; i++) {
+        if (resultArray[i] != undefined) {
+            massege += resultArray[i].name + `\n` + " "
+        }
+    }
+    const text = document.createTextNode(massege)
+    result.appendChild(text)
+    body.appendChild(result)
+
+
+
+}

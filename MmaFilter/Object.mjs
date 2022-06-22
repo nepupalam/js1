@@ -12,7 +12,7 @@ function generateFeatures(  price, duration,subtype = undefined, distant = true 
      features.fullTime = fullTime
     features.correspondence = correspondence
     features.distant = distant
-    if (subtype = undefined) {
+    if (subtype != undefined) {
         features.subtype = subtype
     }
     features.price = price
