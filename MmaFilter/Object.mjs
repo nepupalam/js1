@@ -63,7 +63,7 @@ const obj36 = new Faculty("Специалитет", "Актерское иску
 
 
 
-const obj37 = new Faculty("Аспирантура", "Бухгалтерский учет, анализ и аудит", generateFeatures(55, 4.5, ))
+const obj37 = new Faculty("Аспирантура", "Бухгалтерский учет, анализ и аудит", generateFeatures(57, 4.5, ))
 const obj38 = new Faculty("Аспирантура", "Информационные технологии и телекоммуникации", generateFeatures(55, 4))
 const obj39 = new Faculty("Аспирантура", "Экономический факультет", generateFeatures(55, 4))
 
