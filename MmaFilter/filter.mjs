@@ -89,9 +89,12 @@ ButtonGroup.role = "Basic example"
 const SubButtonGroup = document.createElement("div")
 SubButtonGroup.className = "btn-group gy-4"
 SubButtonGroup.id = "subButtonArea"
-
+const ResultGroup = document.createElement("div")
+ResultGroup.className = "container gy-4 card-group nav justify-content-center"
+ResultGroup.id = "ResultGroup"
 FilterBlock.appendChild(ButtonGroup)
 FilterBlock.appendChild(SubButtonGroup)
+FilterBlock.appendChild(ResultGroup)
 body.appendChild(FilterBlock)
 
 
@@ -260,17 +263,28 @@ function SubButtonResult() {
 
 
 function printResult() {
-    document.getElementById('result').innerHTML = "";
+    document.getElementById('ResultGroup').innerHTML = "";
 
-    let massege = ""
+
     for (let i = 0; i < resultArray.length; i++) {
         if (resultArray[i] != undefined) {
-            massege += resultArray[i].name + `\n` + " "
+            const card = document.createElement("div")
+            const nameText = document.createElement("p")
+            if (resultArray[i].features.subtype !== undefined) {
+
+                let subText = document.createTextNode(resultArray[i].features.subtype)
+                nameText.appendChild(subText)
+            }
+            card.appendChild(nameText)
+            card.className =`card-${getCollour(resultArray[i])}`
+            let name = document.createElement("h5")
+            name.className = "font-weight-bolder"
+            let text = document.createTextNode(resultArray[i].name)
+            name.appendChild(text)
+            card.appendChild(name)
+            ResultGroup.appendChild(card)
         }
     }
-    const text = document.createTextNode(massege)
-    result.appendChild(text)
-    body.appendChild(result)
 
 
     resultArray = Object.assign([] ,bufferArray)
@@ -311,4 +325,22 @@ function StringUndefined(a) {
     }
 
     return  a
+}
+function getCollour(obj) {
+    if (obj.type == "колледж") {
+        return "green"
+    }
+    if (obj.type == "Бакалавриат") {
+        return "orange"
+    }
+    if (obj.type == "Магистратура") {
+        return "blue"
+    }
+    if (obj.type == "Специалитет") {
+        return "lightblue"
+    }
+
+    if (obj.type == "Аспирантура") {
+        return "purple"
+    }
 }
