@@ -1,12 +1,15 @@
 import {ObjArray} from "./Object.mjs";
 
 
+const resultObj = {}
 const FilterArray = {}
 
 for (let i=0; i<ObjArray.length; i++) {
     FilterArray[ObjArray[i].type] = []
 
 }
+
+
 
 
 function AddObject(object) {
@@ -73,11 +76,23 @@ const result = document.createElement("h4")
 result.id ="result"
 body.appendChild(result)
 let resultArray = []
+let bufferArray = []
 const lestSubtypeButton =[];
 const subButtonArea =document.createElement("div")
 body.appendChild(subButtonArea)
-subButtonArea.id = "subButtonArea"
+const FilterBlock = document.createElement("div")
+FilterBlock.className = "container row"
+const ButtonGroup = document.createElement("div")
+ButtonGroup.className = "btn-group btn-group-lg"
+ButtonGroup.role = "Basic example"
 
+const SubButtonGroup = document.createElement("div")
+SubButtonGroup.className = "btn-group gy-4"
+SubButtonGroup.id = "subButtonArea"
+
+FilterBlock.appendChild(ButtonGroup)
+FilterBlock.appendChild(SubButtonGroup)
+body.appendChild(FilterBlock)
 
 
 
@@ -87,15 +102,20 @@ function generateButton() {
  const Button = document.createElement('button')
 
     Button.onclick = generateResult
+    Button.type = "button"
     Button.value = Object.keys(FilterArray)[listButton.length]
-    Button.className = "btn btn-primary"
+    Button.className = "btn btn-outline-primary btn-block btn-lg col "
     Button.count = listButton.length
     Button.id = "Button" +`${listButton.length}`
         let text = document.createTextNode(Object.keys(FilterArray)[listButton.length])
     listButton.push(Button)
     Button.appendChild(text)
-    body.appendChild(Button)
+    ButtonGroup.appendChild(Button)
 }
+
+
+
+
 
 function generateCheckbox() {
     const Checkbox = document.createElement('input')
@@ -110,12 +130,16 @@ function generateCheckbox() {
     body.appendChild(label)
 }
 
-function generateSelect(type) {
-    const listOption = eval(type+`Array`)[Object.keys(PriceArray)[[eval('listSelects' + type).length]]]
+
+
+
+
+function generateSelect(type, count) {
+    const listOption = eval(type+`Array`)[Object.keys(PriceArray)[count]]
     const select = document.createElement("select");
-
+    select.id =  `${type}select`
     select.className
-
+    select.onchange = SelectResult
     select.name = `selectName`;
     body.appendChild(select);
     eval('listSelects' + type).push(select)
@@ -125,6 +149,7 @@ function generateSelect(type) {
         if (listOption[i-1] !== undefined) {
             option.value = listOption[i - 1];
             option.text = listOption[i - 1];
+
             select.add(option);
 
         }
@@ -138,28 +163,38 @@ function generateSelect(type) {
 }
 
 
+
+
+
 for (let i=0; i<Object.keys(FilterArray).length; i++) {
 generateButton()
 }
-generateCheckbox()
-generateCheckbox()
-generateCheckbox()
-
-generateSelect(`Duration`)
-generateSelect(`Duration`)
-generateSelect(`Duration`)
 
 
 
 
 
 function generateResult() {
-    resultArray = Object.assign([], FilterArray[Object.keys(FilterArray)[this.count]])
+        resultArray = Object.assign([], FilterArray[Object.keys(FilterArray)[this.count]])
+        bufferArray = Object.assign([], resultArray)
+    for (let i =0; i<listButton.length; i++) {
+        if (i == this.count) {
+            this.className = "btn btn-primary btn-block btn-lg col "
+        }
+        else {
+            listButton[i].className ="btn btn-outline-primary btn-block btn-lg "
+        }
+    }
+
 
     generateSubTypeButton()
-    printResult()
-
+        printResult()
 }
+
+
+
+
+
 function generateSubTypeButton() {
 let subtype = []
 
@@ -171,33 +206,58 @@ let subtype = []
     }
     document.getElementById('subButtonArea').innerHTML = "";
     if (subtype[0] != undefined) {
-        for (let i = 0; i < subtype.length; i++) {
+        for (let i = 0; i < subtype.length+1; i++) {
             const Button = document.createElement("button")
             Button.onclick = SubButtonResult
+            Button.className = "btn btn-secondary btn-sm font-weight-bold col"
+
             Button.value = subtype[i]
-            Button.className = "btn btn-secondary"
-            Button.count = i
-            Button.id = "SubButton" + `${i}`
-            let text = document.createTextNode(subtype[i])
-            listButton.push(Button)
-            Button.appendChild(text)
-            subButtonArea.appendChild(Button)
+            if (Button.value != "undefined") {
+                Button.count = i
+                Button.id = "SubButton" + `${i}`
+                let text = document.createTextNode(subtype[i])
+                listButton.push(Button)
+                Button.appendChild(text)
+            }
+            else {
+                Button.count = i
+                Button.id = "SubButton" + `${i}`
+                let text = document.createTextNode("Все факультеты")
+                listButton.push(Button)
+                Button.appendChild(text)
+            }
+            SubButtonGroup.appendChild(Button)
         }
     }
 }
+
+
+
+
+
 
 function SubButtonResult() {
     const buffer = Object.assign([], resultArray)
-    for (let i = 0; i< resultArray.length; i++) {
-        if (resultArray[i].features.subtype != this.value) {
-            delete resultArray[i]
+    if (this.value != 'undefined') {
+        for (let i = 0; i < resultArray.length; i++) {
+            if (resultArray[i].features.subtype != this.value) {
+                delete resultArray[i]
+            }
+
         }
+    }
+    else {
+        resultArray = Object.assign([] ,buffer)
 
     }
-    console.log(buffer)
+
     printResult()
-    resultArray = Object.assign([] ,buffer)
 }
+
+
+
+
+
 
 function printResult() {
     document.getElementById('result').innerHTML = "";
@@ -213,5 +273,42 @@ function printResult() {
     body.appendChild(result)
 
 
+    resultArray = Object.assign([] ,bufferArray)
 
+}
+
+
+
+
+
+function SelectResult() {
+    const Filter = [];
+
+    Filter[0] = StringUndefined(Priceselect.value)
+
+    Filter[1] = StringUndefined(Durationselect.value)
+
+        if (Filter[0] != undefined) {
+            for (let i = 0; i < resultArray.length; i++) {
+                if (resultArray[i].features.price != Filter[0]) {
+                    delete resultArray[i]
+                }
+            }
+        }
+    if (Filter[1] != undefined) {
+        for (let i = 0; i < resultArray.length; i++) {
+            if (resultArray[i].features.duration != Filter[1]) {
+                delete resultArray[i]
+            }
+        }
+    }
+    printResult()
+
+}
+function StringUndefined(a) {
+    if (a === "undefined") {
+        return undefined
+    }
+
+    return  a
 }
