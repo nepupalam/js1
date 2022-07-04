@@ -81,16 +81,16 @@ const lestSubtypeButton =[];
 const subButtonArea =document.createElement("div")
 body.appendChild(subButtonArea)
 const FilterBlock = document.createElement("div")
-FilterBlock.className = "container row"
+FilterBlock.className = "container-fluid row"
 const ButtonGroup = document.createElement("div")
 ButtonGroup.className = "btn-group btn-group-lg"
 ButtonGroup.role = "Basic example"
 
 const SubButtonGroup = document.createElement("div")
-SubButtonGroup.className = "btn-group gy-4"
+SubButtonGroup.className = "text-center gy-4"
 SubButtonGroup.id = "subButtonArea"
 const ResultGroup = document.createElement("div")
-ResultGroup.className = "container gy-4 card-group nav justify-content-center"
+ResultGroup.className = "row row-cols-3 row-cols-md-4 row-cols-lg-5 text-center justify-content-center"
 ResultGroup.id = "ResultGroup"
 FilterBlock.appendChild(ButtonGroup)
 FilterBlock.appendChild(SubButtonGroup)
@@ -212,7 +212,8 @@ let subtype = []
         for (let i = 0; i < subtype.length+1; i++) {
             const Button = document.createElement("button")
             Button.onclick = SubButtonResult
-            Button.className = "btn btn-secondary btn-sm font-weight-bold col"
+            Button.className = "" +
+                " btn btn-light  font-weight-bold m-1"
 
             Button.value = subtype[i]
             if (Button.value != "undefined") {
@@ -248,7 +249,7 @@ function SubButtonResult() {
             }
 
         }
-    }
+        }
     else {
         resultArray = Object.assign([] ,buffer)
 
@@ -275,10 +276,20 @@ function printResult() {
                 let subText = document.createTextNode(resultArray[i].features.subtype)
                 nameText.appendChild(subText)
             }
+            nameText.className ="card-title m-3"
             card.appendChild(nameText)
-            card.className =`card-${getCollour(resultArray[i])}`
-            let name = document.createElement("h5")
-            name.className = "font-weight-bolder"
+            for (let i=0; i<resultArray.length; i++) {
+                if (resultArray[i] !== undefined) {
+
+                    getCollour(resultArray[i], card)
+                    break
+                }
+            }
+            card.style.textAlign = "left"
+            card.className =`card m-4`
+
+            let name = document.createElement("h4")
+            name.className = "card-text m-4 "
             let text = document.createTextNode(resultArray[i].name)
             name.appendChild(text)
             card.appendChild(name)
@@ -326,21 +337,31 @@ function StringUndefined(a) {
 
     return  a
 }
-function getCollour(obj) {
+function getCollour(obj, card) {
     if (obj.type == "колледж") {
-        return "green"
+        card.style.background = "linear-gradient(118deg, rgba(34,189,195,1) 0%, rgba(45,253,118,1) 100%)"
+        card.style.color = "#ffffff"
+
     }
     if (obj.type == "Бакалавриат") {
-        return "orange"
+        card.style.background = "linear-gradient(118deg, rgba(34,189,195,1) 0%, rgba(227,253,45,1) 100%)"
+        card.style.color = "#ffffff"
+
+        ;
     }
     if (obj.type == "Магистратура") {
-        return "blue"
+        card.style.color = "#ffffff"
+
+        card.style.background = "linear-gradient(118deg, rgba(195,34,164,1) 0%, rgba(45,234,253,1) 100%)"
     }
     if (obj.type == "Специалитет") {
-        return "lightblue"
+        card.style.color = "#ffffff"
+        card.style.background =  "linear-gradient(118deg, rgba(195,34,164,1) 0%, rgba(253,195,45,1) 100%)"
     }
 
     if (obj.type == "Аспирантура") {
-        return "purple"
+        card.style.color = "#ffffff"
+        card.style.background = "linear-gradient(118deg,rgba(34,61,195,1) 0%, rgba(228,96,96,1) 100%)"
     }
 }
+listButton[1].onclick()
