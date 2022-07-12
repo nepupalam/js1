@@ -14,7 +14,7 @@ for (let i=0; i<ObjArray.length; i++) {
 
 function AddObject(object) {
     for (let i=0; i<Object.keys(FilterArray).length; i++) {
-        if (object.type == Object.keys(FilterArray)[i]) {
+        if (object.type === Object.keys(FilterArray)[i]) {
             FilterArray[Object.keys(FilterArray)[i]].push(object)
         }
     }
@@ -34,8 +34,8 @@ for (let i=0; i<ObjArray.length; i++) {
 
 function AddPrice(object) {
     for (let i=0; i<Object.keys(FilterArray).length; i++) {
-        if (object.type == Object.keys(FilterArray)[i]) {
-        if (PriceArray[Object.keys(PriceArray)[i]].indexOf(object.features.price) == -1) {
+        if (object.type === Object.keys(FilterArray)[i]) {
+        if (PriceArray[Object.keys(PriceArray)[i]].indexOf(object.features.price) === -1) {
             PriceArray[Object.keys(PriceArray)[i]].push(object.features.price)
         }
         }
@@ -54,8 +54,8 @@ for (let i=0; i<ObjArray.length; i++) {
 
 function AddDuration(object) {
     for (let i=0; i<Object.keys(FilterArray).length; i++) {
-        if (object.type == Object.keys(FilterArray)[i]) {
-            if (DurationArray[Object.keys(DurationArray)[i]].indexOf(object.features.duration) == -1) {
+        if (object.type === Object.keys(FilterArray)[i]) {
+            if (DurationArray[Object.keys(DurationArray)[i]].indexOf(object.features.duration) === -1) {
                 DurationArray[Object.keys(DurationArray)[i]].push(object.features.duration)
             }
         }
@@ -181,7 +181,7 @@ function generateResult() {
         resultArray = Object.assign([], FilterArray[Object.keys(FilterArray)[this.count]])
         bufferArray = Object.assign([], resultArray)
     for (let i =0; i<listButton.length; i++) {
-        if (i == this.count) {
+        if (i === this.count) {
             this.className = "btn btn-primary btn-block btn-lg col "
         }
         else {
@@ -202,13 +202,13 @@ function generateSubTypeButton() {
 let subtype = []
 
     for (let i=0; i<resultArray.length; i++) {
-        if (subtype.indexOf(resultArray[i].features.subtype) == -1) {
+        if (subtype.indexOf(resultArray[i].features.subtype) === -1) {
             subtype.push(resultArray[i].features.subtype)
 
         }
     }
     document.getElementById('subButtonArea').innerHTML = "";
-    if (subtype[0] != undefined) {
+    if (subtype[0] !== undefined) {
         for (let i = 0; i < subtype.length+1; i++) {
             const Button = document.createElement("button")
             Button.onclick = SubButtonResult
@@ -216,7 +216,7 @@ let subtype = []
                 " btn btn-light  font-weight-bold m-1"
 
             Button.value = subtype[i]
-            if (Button.value != "undefined") {
+            if (Button.value !== "undefined") {
                 Button.count = i
                 Button.id = "SubButton" + `${i}`
                 let text = document.createTextNode(subtype[i])
@@ -242,9 +242,9 @@ let subtype = []
 
 function SubButtonResult() {
     const buffer = Object.assign([], resultArray)
-    if (this.value != 'undefined') {
+    if (this.value !== 'undefined') {
         for (let i = 0; i < resultArray.length; i++) {
-            if (resultArray[i].features.subtype != this.value) {
+            if (resultArray[i].features.subtype !== this.value) {
                 delete resultArray[i]
             }
 
@@ -268,7 +268,7 @@ function printResult() {
 
 
     for (let i = 0; i < resultArray.length; i++) {
-        if (resultArray[i] != undefined) {
+        if (resultArray[i] !== undefined) {
             const card = document.createElement("div")
             const nameText = document.createElement("p")
             if (resultArray[i].features.subtype !== undefined) {
@@ -313,16 +313,16 @@ function SelectResult() {
 
     Filter[1] = StringUndefined(Durationselect.value)
 
-        if (Filter[0] != undefined) {
+        if (Filter[0] !== undefined) {
             for (let i = 0; i < resultArray.length; i++) {
-                if (resultArray[i].features.price != Filter[0]) {
+                if (resultArray[i].features.price !== Filter[0]) {
                     delete resultArray[i]
                 }
             }
         }
-    if (Filter[1] != undefined) {
+    if (Filter[1] !== undefined) {
         for (let i = 0; i < resultArray.length; i++) {
-            if (resultArray[i].features.duration != Filter[1]) {
+            if (resultArray[i].features.duration !== Filter[1]) {
                 delete resultArray[i]
             }
         }
@@ -330,6 +330,11 @@ function SelectResult() {
     printResult()
 
 }
+
+
+
+
+
 function StringUndefined(a) {
     if (a === "undefined") {
         return undefined
@@ -337,29 +342,34 @@ function StringUndefined(a) {
 
     return  a
 }
+
+
+
+
+
 function getCollour(obj, card) {
-    if (obj.type == "колледж") {
+    if (obj.type === "колледж") {
         card.style.background = "linear-gradient(118deg, rgba(34,189,195,1) 0%, rgba(45,253,118,1) 100%)"
         card.style.color = "#ffffff"
 
     }
-    if (obj.type == "Бакалавриат") {
+    if (obj.type === "Бакалавриат") {
         card.style.background = "linear-gradient(118deg, rgba(34,189,195,1) 0%, rgba(227,253,45,1) 100%)"
         card.style.color = "#ffffff"
 
         ;
     }
-    if (obj.type == "Магистратура") {
+    if (obj.type === "Магистратура") {
         card.style.color = "#ffffff"
 
         card.style.background = "linear-gradient(118deg, rgba(195,34,164,1) 0%, rgba(45,234,253,1) 100%)"
     }
-    if (obj.type == "Специалитет") {
+    if (obj.type === "Специалитет") {
         card.style.color = "#ffffff"
         card.style.background =  "linear-gradient(118deg, rgba(195,34,164,1) 0%, rgba(253,195,45,1) 100%)"
     }
 
-    if (obj.type == "Аспирантура") {
+    if (obj.type === "Аспирантура") {
         card.style.color = "#ffffff"
         card.style.background = "linear-gradient(118deg,rgba(34,61,195,1) 0%, rgba(228,96,96,1) 100%)"
     }
